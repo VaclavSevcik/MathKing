@@ -124,3 +124,4 @@ if __name__ == '__main__':
 # TODO count with negative integer?
 # TODO sg.Help make help window...
 # TODO mend is operation with integer values
+# TODO support plugin - interfacemi

@@ -1,27 +1,61 @@
+import sys
 
 class LanguageManager:
-    ''' The class provides language mutations for other module.
-
+    '''
+    The class provides language mutations for other module.
     '''
 
+    # Text constant language read in its language
+    CZECH_NAME_OF_LANGUAGE = 'Česky'
+    ENGLISH_NAME_OF_LANGUAGE = 'English'
+
     # the available language mutations
-    list_of_languages = ['Česky', 'English']
+    language_dictionaries = {CZECH_NAME_OF_LANGUAGE: None, ENGLISH_NAME_OF_LANGUAGE: None}
+
+    # list with all keywords using in program
+    list_of_keys = ['title', 'number_of_examples', 'number_range', 'text_range_from', 'text_range_to', 'generate',
+                    'save_files', 'help', 'close', 'type_of_sign', 'plus', 'minus', 'multiplication', 'division',
+                    'saveText', 'saveLocation', 'nameOfProgramToFileName', 'parseExceptionFromIsInteger',
+                    'parseExceptionToIsInteger', 'parseExceptionFromGreaterThenTo', 'parseExceptionAmountOfExampleIsInteger',
+                    'parseExceptionAmountOfExampleIsGreaterThanZero']
 
     # initialize dictionaries
     czech = {}
     english = {}
 
     # Initialize actual dictionary
-    language_dictionary = czech
+    actual_language_dictionary = czech
 
     def __init__(self):
         '''
-        The method nitializes dictionaries with records and check them.
+        The method initializes dictionaries with records and check them.
         '''
 
-        # TODO check all words are defined in all languages... All keyword in list and check in laguage all - first size - after find not defined...
         self.__init_czech_mutation()
         self.__init_english_mutation()
+        self.__check_keywords_in_dictionaries()
+
+    def __check_keywords_in_dictionaries(self):
+        '''
+        The method checks if all language has defined all keywords. If not, write log which keyword not defined to stderr.
+        '''
+
+        self.language_dictionaries = {self.CZECH_NAME_OF_LANGUAGE: self.czech, self.ENGLISH_NAME_OF_LANGUAGE: self.english}
+
+        # check all language if is defined all keywords
+        for language in self.language_dictionaries:
+
+            # get list of language keys
+            keywords = self.language_dictionaries[language]
+
+            # check language keywords towards the list of keywords
+            missing_word_in_language = list(set(self.list_of_keys) - set(keywords))
+
+            # Write to terminal warning text which keyword is not defined in which language
+            if missing_word_in_language:
+                print("In language " + language + " is not defined this keywords " +
+                      (', '.join([str(item) for item in missing_word_in_language])) + "!", file=sys.stderr)
+
 
     def set_language(self, language):
         ''' The method sets language of application.
@@ -29,10 +63,10 @@ class LanguageManager:
         :param language: The new language to set.
         :return None:
         '''
-        if language == "English":
-            self.language_dictionary = self.english
-        elif language == "Česky":
-            self.language_dictionary = self.czech
+        if language == self.ENGLISH_NAME_OF_LANGUAGE:
+            self.actual_language_dictionary = self.english
+        elif language == self.CZECH_NAME_OF_LANGUAGE:
+            self.actual_language_dictionary = self.czech
 
     def get_string(self, key):
         ''' The method gets string according to written key.
@@ -41,7 +75,7 @@ class LanguageManager:
         :return str: The sentence from dictionary.
         '''
         try:
-            return self.language_dictionary[key]
+            return self.actual_language_dictionary[key]
         except KeyError: # TODO try it
             return ""
 
@@ -50,7 +84,7 @@ class LanguageManager:
 
         :return [str]: The list with supported languages.
         '''
-        return self.list_of_languages
+        return list(self.language_dictionaries.keys())
 
     def __init_czech_mutation(self):
         ''' The method sets dictionary with czech language.
@@ -81,7 +115,7 @@ class LanguageManager:
 
         self.czech['parseExceptionFromIsInteger'] = 'Ve volbě rozsahu číslo určující nejnižší generované číslo obsahuje znaky, které neodpovídají zápisu čísla.'
         self.czech['parseExceptionToIsInteger'] = 'Ve volbě rozsahu číslo určující nejvyšší generované číslo obsahuje znaky, které neodpovídají zápisu čísla.'
-        self.czech['parseExceptionFromGreaterThenTO'] = 'Ve volbě rozsahu je číslo určující nejnižší generované číslo větší než číslo určující nejvyšší generované číslo.'
+        self.czech['parseExceptionFromGreaterThenTo'] = 'Ve volbě rozsahu je číslo určující nejnižší generované číslo větší než číslo určující nejvyšší generované číslo.'
         self.czech['parseExceptionAmountOfExampleIsInteger'] = 'Počet generovaných příkladů není zadán číslem. Je v něm znak neodpovídající číslu.'
         self.czech['parseExceptionAmountOfExampleIsGreaterThanZero'] = 'Počet generovaných příkladů je nižší než nula, proto není možné je vygenerovat.'
 
@@ -103,9 +137,9 @@ class LanguageManager:
 
         self.english['type_of_sign'] = 'Type of signs'
         self.english['plus'] = 'Addition (+)'
-        self.english['minus'] = 'Subtraction (-)'
-        self.english['multiplication'] = 'Multiplication (*)'
-        self.english['division'] = 'Division (/)'
+        # self.english['minus'] = 'Subtraction (-)'
+        # self.english['multiplication'] = 'Multiplication (*)'
+        # self.english['division'] = 'Division (/)'
 
         self.english['saveText'] = 'Browse'
         self.english['saveLocation'] = 'Choose directory'
@@ -114,6 +148,6 @@ class LanguageManager:
 
         self.english['parseExceptionFromIsInteger'] = 'The lower limit of number limit is not number. The string contain symbols which is not digit or sign.'
         self.english['parseExceptionToIsInteger'] = 'The higher limit of number limit is not number. The string contain symbols which is not digit or sign.'
-        self.english['parseExceptionFromGreaterThenTO'] = 'The lower limit of generated number is greater than greater limit.'
+        self.english['parseExceptionFromGreaterThenTo'] = 'The lower limit of generated number is greater than greater limit.'
         self.english['parseExceptionAmountOfExampleIsInteger'] = 'The number of example to generate is not write with digit or sign.'
         self.english['parseExceptionAmountOfExampleIsGreaterThanZero'] = 'The number of example to generate is lower than zero.'
