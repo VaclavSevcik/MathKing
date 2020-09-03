@@ -11,7 +11,8 @@ def get_layout(language_manager):
     :return: The method returns layout of generator.
     '''
     return [[sg.Combo(language_manager.get_supported_languages(), default_value="Česky", enable_events=True, key="language")],
-              [sg.Text(language_manager.get_string('number_of_examples'), key='number_of_examples'), sg.InputText(key="amount_of_examples", size=(6, 1), default_text=30)],
+              [sg.Text(language_manager.get_string('number_of_examples'), key='number_of_examples'), sg.InputText(key="amount_of_examples", size=(6, 1), default_text=30),
+               sg.Text(language_manager.get_string('number_of_copies'), key='number_of_copies'), sg.InputText(key="amount_of_copies", size=(6, 1), default_text=20) ],
               [sg.Text(language_manager.get_string('number_range'), key='number_range')],
               rangeForm,
               [sg.Text(language_manager.get_string('type_of_sign'), key='type_of_sign')],
@@ -28,6 +29,7 @@ def actualize_window_layout(language_manager):
     '''
     window.TKroot.title(language_manager.get_string('title'))
     window.elem('number_of_examples').update(language_manager.get_string('number_of_examples'))
+    window.elem('number_of_copies').update(language_manager.get_string('number_of_copies'))
     window.elem('number_range').update(language_manager.get_string('number_range'))
     window.elem('text_range_from').update(language_manager.get_string('text_range_from'))
     window.elem('text_range_to').update(language_manager.get_string('text_range_to'))
@@ -46,6 +48,19 @@ def actualize_window_layout(language_manager):
     window.elem('saveText').update(language_manager.get_string('saveText'))
     window.elem('saveLocation').update(language_manager.get_string('saveLocation'))
     window.refresh()
+
+def check_copies_input(number_of_copies):
+    # check the amount of copies is number
+    try:
+        int(number_of_copies)
+    except:
+        raise ParseConfigException('parseExceptionAmountOfCopiesIsInteger')
+
+    # check the amount of copies is greater than zero
+    if int(number_of_copies) < 0:
+        raise ParseConfigException('parseExceptionAmountOfCopiesIsGreaterThanZero')
+
+    return int(number_of_copies)
 
 if __name__ == '__main__':
 
@@ -104,7 +119,7 @@ if __name__ == '__main__':
 
             if event == 'save_files':
                 # TODO check if the string is empty, then write popup warning.
-                pdf_creator.printExampleToPDF(generated_examples, language_manager, configurationInformation['saveText'])
+                pdf_creator.printExampleToPDF(generated_examples, language_manager, configurationInformation['saveText'], check_copies_input(configurationInformation['amount_of_copies']))
 
             if event == 'help':
                 pass  # TODO make help

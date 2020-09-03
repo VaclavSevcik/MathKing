@@ -6,19 +6,19 @@ NUMBER_OF_COLUMN = 4
 FONT_SIZE = 16
 WIDTH_OF_RESULT = 20  # TODO try to different size of result
 LINE_OF_EXAMPLE_HIGH = 8
-NUMBER_OF_COPIES = 5
 
 class PDFCreator:
     ''' The class provides creation of PDF and write sth to it.
 
     '''
 
-    def printExampleToPDF(self, examplesToPrint, language_manager, nameOfDirectory):
+    def printExampleToPDF(self, examplesToPrint, language_manager, nameOfDirectory, numberOfCopies):
         ''' The method print example to PDF.
 
         :param [str] examplesToPrint: The list with math examples.
         :param Language_manager language_manager: Manager of language mutation and translation of sentence.
         :param str nameOfDirectory: Name of the user chosen output directory.
+        :param int numberOfCopies: The number of copies to print.
         :return None:
         '''
 
@@ -50,7 +50,7 @@ class PDFCreator:
         y_size = self.__measure_high_of_examples(examplesToPrint, width_of_example)
 
         # write example and results to PDF
-        self.__writeExamplesToPDF(y_before, y_size, pdfExamples, examplesToPrint, width_of_example, effective_page_width)
+        self.__writeExamplesToPDF(y_before, y_size, pdfExamples, examplesToPrint, width_of_example, effective_page_width, numberOfCopies)
         self.__writeResultsToPDF(y_before, pdfResults, examplesToPrint, width_of_example, effective_page_width)
 
         # save pdf to directory
@@ -84,8 +84,8 @@ class PDFCreator:
 
         return size_y_block
 
-    def __writeExamplesToPDF(self, y_before, y_size, pdfExamples, examplesToPrint, width_of_example, effective_page_width):
-        ''' The method writes all examples to PDF. The method write them so many times as NUMBER_OF_COPIES defined.
+    def __writeExamplesToPDF(self, y_before, y_size, pdfExamples, examplesToPrint, width_of_example, effective_page_width, numberOfCopies):
+        ''' The method writes all examples to PDF. The method write them so many times as numberOfCopies defined.
         The sample with example never divide into two pages. When the sample crosses the edge of page, the sample is placed in new page.
 
         :param float y_before: The high before writing (initial high in PDF document).
@@ -102,7 +102,7 @@ class PDFCreator:
         new_position_in_PDF = y_before
 
         # generate number of copies with examples
-        for examplesCopy in range(NUMBER_OF_COPIES + 1):
+        for examplesCopy in range(numberOfCopies + 1):
 
             # predict if the sample with examples is over edge of list
             new_position_in_PDF += y_size

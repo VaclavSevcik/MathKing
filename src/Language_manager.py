@@ -13,7 +13,7 @@ class LanguageManager:
     language_dictionaries = {CZECH_NAME_OF_LANGUAGE: None, ENGLISH_NAME_OF_LANGUAGE: None}
 
     # list with all keywords using in program
-    list_of_keys = ['title', 'number_of_examples', 'number_range', 'text_range_from', 'text_range_to', 'generate',
+    list_of_keys = ['title', 'number_of_examples', 'number_of_copies', 'number_range', 'text_range_from', 'text_range_to', 'generate',
                     'save_files', 'help', 'close', 'type_of_sign', 'plus', 'minus', 'multiplication', 'division',
                     'saveText', 'saveLocation', 'nameOfProgramToFileName', 'parseExceptionFromIsInteger',
                     'parseExceptionToIsInteger', 'parseExceptionFromGreaterThenTo', 'parseExceptionAmountOfExampleIsInteger',
@@ -94,6 +94,7 @@ class LanguageManager:
         # czech mutation
         self.czech['title'] = 'Generátor krále počtů'
         self.czech['number_of_examples'] = 'Počet příkladů'
+        self.czech['number_of_copies'] = 'Počet kopií'
         self.czech['number_range'] = 'Rozsah čísel'
         self.czech['text_range_from'] = 'Od'
         self.czech['text_range_to'] = 'Do'
@@ -118,6 +119,8 @@ class LanguageManager:
         self.czech['parseExceptionFromGreaterThenTo'] = 'Ve volbě rozsahu je číslo určující nejnižší generované číslo větší než číslo určující nejvyšší generované číslo.'
         self.czech['parseExceptionAmountOfExampleIsInteger'] = 'Počet generovaných příkladů není zadán číslem. Je v něm znak neodpovídající číslu.'
         self.czech['parseExceptionAmountOfExampleIsGreaterThanZero'] = 'Počet generovaných příkladů je nižší než nula, proto není možné je vygenerovat.'
+        self.czech['parseExceptionAmountOfCopiesIsInteger'] = 'Počet generovaných kopií není zadán číslem. Je v něm znak neodpovídající číslu.'
+        self.czech['parseExceptionAmountOfCopiesIsGreaterThanZero'] = 'Počet generovaných kopií je nižší než nula, proto není možné je vygenerovat.'
 
     def __init_english_mutation(self):
         ''' The method sets dictionary with english language.
@@ -127,6 +130,7 @@ class LanguageManager:
         # TODO BUG not show all text in english
         self.english['title'] = 'Math king generator'
         self.english['number_of_examples'] = 'Number of examples'
+        self.english['number_of_copies'] = 'Number of copies'
         self.english['number_range'] = 'Number range'
         self.english['text_range_from'] = 'From'
         self.english['text_range_to'] = 'To'
@@ -137,9 +141,9 @@ class LanguageManager:
 
         self.english['type_of_sign'] = 'Type of signs'
         self.english['plus'] = 'Addition (+)'
-        # self.english['minus'] = 'Subtraction (-)'
-        # self.english['multiplication'] = 'Multiplication (*)'
-        # self.english['division'] = 'Division (/)'
+        self.english['minus'] = 'Subtraction (-)'
+        self.english['multiplication'] = 'Multiplication (*)'
+        self.english['division'] = 'Division (/)'
 
         self.english['saveText'] = 'Browse'
         self.english['saveLocation'] = 'Choose directory'
@@ -151,3 +155,5 @@ class LanguageManager:
         self.english['parseExceptionFromGreaterThenTo'] = 'The lower limit of generated number is greater than greater limit.'
         self.english['parseExceptionAmountOfExampleIsInteger'] = 'The number of example to generate is not write with digit or sign.'
         self.english['parseExceptionAmountOfExampleIsGreaterThanZero'] = 'The number of example to generate is lower than zero.'
+        self.english['parseExceptionAmountOfCopiesIsInteger'] = 'The number of copies to generate is not write with digit or sign.'
+        self.english['parseExceptionAmountOfCopiesIsGreaterThanZero'] = 'The number of copies to generate is lower than zero.'
