@@ -14,10 +14,10 @@ class LanguageManager:
 
     # list with all keywords using in program
     list_of_keys = ['title', 'number_of_examples', 'number_of_copies', 'number_range', 'text_range_from', 'text_range_to', 'generate',
-                    'save_files', 'help', 'close', 'type_of_sign', 'plus', 'minus', 'multiplication', 'division',
-                    'saveText', 'saveLocation', 'nameOfProgramToFileName', 'parseExceptionFromIsInteger',
+                    'save_files', 'help', 'close', 'warning', 'type_of_sign', 'plus', 'minus', 'multiplication',
+                    'division', 'saveText', 'saveLocation', 'nameOfProgramToFileName', 'parseExceptionFromIsInteger',
                     'parseExceptionToIsInteger', 'parseExceptionFromGreaterThenTo', 'parseExceptionAmountOfExampleIsInteger',
-                    'parseExceptionAmountOfExampleIsGreaterThanZero']
+                    'parseExceptionAmountOfExampleIsGreaterThanZero', 'text_help']
 
     # initialize dictionaries
     czech = {}
@@ -102,6 +102,7 @@ class LanguageManager:
         self.czech['save_files'] = 'Uložit soubory'
         self.czech['help'] = 'Nápověda'
         self.czech['close'] = 'Zavřít'
+        self.czech['warning'] = 'Upozornění'
 
         self.czech['type_of_sign'] = 'Znaménka'
         self.czech['plus'] = 'Sčítání (+)'
@@ -112,7 +113,7 @@ class LanguageManager:
         self.czech['saveText'] = 'Vyberte složku'
         self.czech['saveLocation'] = 'Uložit do'
 
-        self.czech['nameOfProgramToFileName'] = 'MatematickyKral'
+        self.czech['nameOfProgramToFileName'] = 'PocetniKral'
 
         self.czech['parseExceptionFromIsInteger'] = 'Ve volbě rozsahu číslo určující nejnižší generované číslo obsahuje znaky, které neodpovídají zápisu čísla.'
         self.czech['parseExceptionToIsInteger'] = 'Ve volbě rozsahu číslo určující nejvyšší generované číslo obsahuje znaky, které neodpovídají zápisu čísla.'
@@ -122,12 +123,21 @@ class LanguageManager:
         self.czech['parseExceptionAmountOfCopiesIsInteger'] = 'Počet generovaných kopií není zadán číslem. Je v něm znak neodpovídající číslu.'
         self.czech['parseExceptionAmountOfCopiesIsGreaterThanZero'] = 'Počet generovaných kopií je nižší než nula, proto není možné je vygenerovat.'
 
+        self.czech['text_help'] = "Aplikace pro generování příkladů pro učitele prvního stupně základních škol." \
+                                  " Generátor dokáže generovat příklady v rozsahu čísel nastavených uživatelem." \
+                                  " Uživatel si může zvolit operace se kterými budou příklady generovány. \n" \
+                                  "Autor: Václav Ševčík\n\n" \
+                                  "Popis:\n" \
+                                  "Pro využítí generátoru lze zvolit množství příkladů, které se vygenerují a v kolika kopiích se tyto příklady uloží do PDF. " \
+                                  "Lze zvolit rozsah čísel v kterém budou čísla generovány. Poté lze zvolit operace se kterýma budou příklady generovány. " \
+                                  "Poté lze vybrat složku do kterého budou vygenerované soubory uloženy. Následuje tlačítko pro znovu vygenerování příkladu " \
+                                  "a tlačítko pro uložení vygenerovaných příkladů. Poslední dvě tlačítka mají za úkol zavřít aplikaci a zobrazit nápovědu."
+
     def __init_english_mutation(self):
         ''' The method sets dictionary with english language.
 
         :return None:
         '''
-        # TODO BUG not show all text in english
         self.english['title'] = 'Math king generator'
         self.english['number_of_examples'] = 'Number of examples'
         self.english['number_of_copies'] = 'Number of copies'
@@ -138,6 +148,7 @@ class LanguageManager:
         self.english['save_files'] = 'Save files'
         self.english['help'] = 'Help'
         self.english['close'] = 'Close'
+        self.english['warning'] = 'Warning'
 
         self.english['type_of_sign'] = 'Type of signs'
         self.english['plus'] = 'Addition (+)'
@@ -157,3 +168,12 @@ class LanguageManager:
         self.english['parseExceptionAmountOfExampleIsGreaterThanZero'] = 'The number of example to generate is lower than zero.'
         self.english['parseExceptionAmountOfCopiesIsInteger'] = 'The number of copies to generate is not write with digit or sign.'
         self.english['parseExceptionAmountOfCopiesIsGreaterThanZero'] = 'The number of copies to generate is lower than zero.'
+
+        self.english['text_help'] = "The generator of examples (basic math) for elementary school teachers." \
+                                    "Author: Václav Ševčík\n\n" \
+                                    "Description:\n" \
+                                    "The user chooses scope of generated numbers and operation which will be between them." \
+                                    " The user can choose how many examples and how many copies will be generated to save PDF." \
+                                    " The user can choose scope of generated numbers and operation which will be use." \
+                                    " The user can choose the folder to save. When the user do not choose folder, the file will be saved to project directory." \
+                                    " The buttons bottom consists of the button for generating example, save example to file, closing app button and button to show help."

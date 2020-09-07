@@ -11,13 +11,13 @@ def get_layout(language_manager):
     :return: The method returns layout of generator.
     '''
     return [[sg.Combo(language_manager.get_supported_languages(), default_value="Česky", enable_events=True, key="language")],
-              [sg.Text(language_manager.get_string('number_of_examples'), key='number_of_examples'), sg.InputText(key="amount_of_examples", size=(6, 1), default_text=30),
-               sg.Text(language_manager.get_string('number_of_copies'), key='number_of_copies'), sg.InputText(key="amount_of_copies", size=(6, 1), default_text=20) ],
-              [sg.Text(language_manager.get_string('number_range'), key='number_range')],
+              [sg.Text(language_manager.get_string('number_of_examples'), key='number_of_examples', size=(16, 1)), sg.InputText(key="amount_of_examples", size=(6, 1), default_text=30),
+               sg.Text(language_manager.get_string('number_of_copies'), key='number_of_copies', size=(15, 1)), sg.InputText(key="amount_of_copies", size=(6, 1), default_text=20) ],
+              [sg.Text(language_manager.get_string('number_range'), key='number_range', size=(12,1))],
               rangeForm,
-              [sg.Text(language_manager.get_string('type_of_sign'), key='type_of_sign')],
+              [sg.Text(language_manager.get_string('type_of_sign'), key='type_of_sign', size=(12,1))],
               listOfSigns,
-              [sg.Text(language_manager.get_string('saveLocation'), key='saveLocation'), directoryButton],
+              [sg.Text(language_manager.get_string('saveLocation'), key='saveLocation', size=(15,1)), directoryButton],
               listOfButtons]
 
 
@@ -27,6 +27,7 @@ def actualize_window_layout(language_manager):
     :param Language_manager language_manager: Manager of language mutation and translation of sentence.
     :return: None
     '''
+
     window.TKroot.title(language_manager.get_string('title'))
     window.elem('number_of_examples').update(language_manager.get_string('number_of_examples'))
     window.elem('number_of_copies').update(language_manager.get_string('number_of_copies'))
@@ -48,6 +49,7 @@ def actualize_window_layout(language_manager):
     window.elem('saveText').update(language_manager.get_string('saveText'))
     window.elem('saveLocation').update(language_manager.get_string('saveLocation'))
     window.refresh()
+
 
 def check_copies_input(number_of_copies):
     # check the amount of copies is number
@@ -74,9 +76,9 @@ if __name__ == '__main__':
     #print(sg.theme_list()) # to print themes to choose one
 
     # list of check boxes
-    rangeForm = [sg.Text(language_manager.get_string('text_range_from'), key='text_range_from'),
+    rangeForm = [sg.Text(language_manager.get_string('text_range_from'), key='text_range_from', size=(5, 1)),
                  sg.InputText(key="range_from", size=(10, 1), default_text=1),
-                 sg.Text(language_manager.get_string('text_range_to'), key='text_range_to'),
+                 sg.Text(language_manager.get_string('text_range_to'), key='text_range_to', size=(5, 1)),
                  sg.InputText(key="range_to", size=(10, 1), default_text=10)]
 
     # Choose of signs
@@ -118,25 +120,24 @@ if __name__ == '__main__':
                 generated_examples = number_engine.generateExamples(configurationInformation)
 
             if event == 'save_files':
-                # TODO check if the string is empty, then write popup warning.
                 pdf_creator.printExampleToPDF(generated_examples, language_manager, configurationInformation['saveText'], check_copies_input(configurationInformation['amount_of_copies']))
 
             if event == 'help':
-                pass  # TODO make help
+                sg.Popup(language_manager.get_string('text_help'), title=language_manager.get_string('help'),
+                         non_blocking=True)
 
             # actualize language window layout
             actualize_window_layout(language_manager)
 
         except ParseConfigException as Error:
-            sg.Popup(language_manager.get_string(Error.message), title='INPUT ERROR', non_blocking=True) # TODO title
+            sg.Popup(language_manager.get_string(Error.message), title=language_manager.get_string('warning'), non_blocking=True)
 
     window.close()
 
-
-# TODO must do - script which make .exe from this program with each push to GIT.
 # TODO feature - replace classic (*,/) to symbols (X, and the other one) - automatic in czech language
 # TODO feature - turn on division with reminder - advanced option
 # TODO count with negative integer?
-# TODO sg.Help make help window...
 # TODO mend is operation with integer values
-# TODO support plugin - interfacemi
+# TODO support plugin - interfaces
+# TODO dynamic layout after change language - gaps etc.
+

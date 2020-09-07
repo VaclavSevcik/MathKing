@@ -2,6 +2,7 @@ from src.exceptions import ParseConfigException
 import random
 
 # TODO constrain number of example
+# TODO - constrain - more then EXAMPLE_TO_PAGE example overflow one page - need count page and write to previous page in method __writeExamplesToPDF
 EXAMPLE_TO_PAGE = 132
 
 class NumberEngine:
@@ -70,7 +71,7 @@ class NumberEngine:
 
         # Number of example to generate
         self.numberOfExample = int(information_from_GUI['amount_of_examples'])
-        # TODO - constrain - more then EXAMPLE_TO_PAGE example overflow one page - need count page and write to previous page in method __writeExamplesToPDF
+
         # set number of example to max number example which fill one page.
         if self.numberOfExample > EXAMPLE_TO_PAGE:
             self.numberOfExample = EXAMPLE_TO_PAGE
@@ -86,8 +87,6 @@ class NumberEngine:
         # generate two random number from low bound to high bound
         first_number = self.__getRandomNumber(self.lowBoundNumber, self.highBoundNumber)
         second_number = self.__getRandomNumber(self.lowBoundNumber, self.highBoundNumber)
-
-        # TODO mozna nebrat, kdyz jsou dve stejna cisla za sebou... - pamatovat first a second number a kdyz stejne, tak znovu...
 
         # draw enable operator
         if not self.allowedOperation:
@@ -107,7 +106,6 @@ class NumberEngine:
 
         # Subtraction case
         elif operation == "subtraction":
-            # TODO mend negative number of result is choosed again
             while second_number > first_number:
                 first_number = self.__getRandomNumber(self.lowBoundNumber, self.highBoundNumber)
                 second_number = self.__getRandomNumber(self.lowBoundNumber, self.highBoundNumber)
