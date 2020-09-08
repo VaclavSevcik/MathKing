@@ -102,7 +102,7 @@ class PDFCreator:
         new_position_in_PDF = y_before
 
         # generate number of copies with examples
-        for examplesCopy in range(numberOfCopies + 1):
+        for examplesCopy in range(numberOfCopies):
 
             # predict if the sample with examples is over edge of list
             new_position_in_PDF += y_size

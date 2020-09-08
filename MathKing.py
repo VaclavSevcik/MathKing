@@ -140,4 +140,7 @@ if __name__ == '__main__':
 # TODO mend is operation with integer values
 # TODO support plugin - interfaces
 # TODO dynamic layout after change language - gaps etc.
+# TODO save settings to file I a, IIa, IIb class etc.
+# TODO show PDF to tmp PDF... Náhled...
+# TODO floating point arithmetic
 

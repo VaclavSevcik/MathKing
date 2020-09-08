@@ -52,7 +52,7 @@ class NumberEngine:
             raise ParseConfigException('parseExceptionFromIsInteger')
 
         # check low boundary is lower than high boundary
-        if information_from_GUI['range_from'] > information_from_GUI['range_to']:
+        if int(information_from_GUI['range_from']) > int(information_from_GUI['range_to']):
             raise ParseConfigException('parseExceptionFromGreaterThenTo')
 
         # set boundary values
